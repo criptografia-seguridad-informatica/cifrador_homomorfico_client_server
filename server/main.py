@@ -12,6 +12,7 @@ def server_program():
 
     number = client_socket.recv(1024).decode()
     echoed_number = number
+    print("Recieved number:", number)
 
     client_socket.send(echoed_number.encode())
 
