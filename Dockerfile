@@ -18,9 +18,7 @@ WORKDIR /app
 COPY . ./
 
 # Hay que copiar este archivo en todos lados donde se use la librería de SEAL
-RUN cp seal.*.so ./client/model
-RUN cp seal.*.so ./server/model
-RUN cp seal.*.so ./examples
+RUN cp seal.*.so ./common
 
 
 ENTRYPOINT ["python3"]
