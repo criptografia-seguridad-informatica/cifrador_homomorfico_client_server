@@ -1,4 +1,4 @@
-class CifradorHomomorfico:
+class CifradorHomomorficoParcial:
     """
     Una clase que implementa encriptación homomórfica.
     """
@@ -13,5 +13,6 @@ class CifradorHomomorfico:
     def desencriptar(self, numero_a_desencriptar):
         return self.private_key.decrypt(numero_a_desencriptar)
 
-    def operacion(self, operacion):
-        raise NotImplementedError("Method not yet implemented")
+    def operaciones(self, numero_1, operacion, numero_2):
+        return numero_1 + numero_2
+
