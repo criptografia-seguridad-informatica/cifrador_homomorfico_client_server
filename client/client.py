@@ -1,4 +1,7 @@
 class Client:
+    """
+
+    """
     def __init__(self, host = 'localhost', port = 5000):
         from socket import socket
 
