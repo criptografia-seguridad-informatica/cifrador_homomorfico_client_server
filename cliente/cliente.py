@@ -1,4 +1,4 @@
-class Client:
+class Cliente:
     """
 
     """
@@ -9,11 +9,11 @@ class Client:
         client_socket.connect((host,port))
 
         self._socket = client_socket
-    def send_message(self, message):
+    def enviar_mensaje(self, message):
         self._socket.send(message.encode())
 
-    def receive_message(self):
+    def recibir_mensaje(self):
         return self._socket.recv(1024).decode()
 
-    def close_connection(self):
+    def cerrar_conexion(self):
         self._socket.close()
