@@ -30,3 +30,16 @@ def test_suma_de_dos_numeros_encriptados():
     suma_desencriptada = cifrador_homomorfico.desencriptar(suma_encriptada)
 
     assert suma_desencriptada == numero_a_encriptar_1 + numero_a_encriptar_2
+
+
+def test_multiplicacion_de_un_numero_encriptado_por_numero_no_encriptado():
+    numero_a_encriptar_1 = 5
+    numero_2 = 5
+    operador_multiplicacion = "*"
+
+    cifrador_homomorfico = CifradorHomomorficoParcial()
+    numero_encriptado_1 = cifrador_homomorfico.encriptar(numero_a_encriptar_1)
+    multiplicacion_encriptada = cifrador_homomorfico.operaciones(numero_encriptado_1, operador_multiplicacion, numero_2)
+    multiplicacion_desencriptada = cifrador_homomorfico.desencriptar(multiplicacion_encriptada)
+
+    assert multiplicacion_desencriptada == numero_a_encriptar_1 * numero_2
