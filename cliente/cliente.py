@@ -1,14 +1,15 @@
+from socket import socket
+
+
 class Cliente:
     """
 
     """
-    def __init__(self, host = 'localhost', port = 5000):
-        from socket import socket
 
-        client_socket = socket()
-        client_socket.connect((host,port))
+    def __init__(self, socket_cliente: socket = socket(), host='localhost', port=5000):
+        socket_cliente.connect((host, port))
+        self._socket = socket_cliente
 
-        self._socket = client_socket
     def enviar_mensaje(self, message):
         self._socket.send(message.encode())
 
