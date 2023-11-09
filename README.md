@@ -1,9 +1,9 @@
 1. Hacer ejecutables los archivos .sh
    ```Terminal
-    sudo chmod +x start_server.sh
+    sudo chmod +x start_servidor.sh
    ```
    ```Terminal
-   sudo chmod +x start_client.sh
+   sudo chmod +x start_cliente.sh
    ```
    ```Terminal
    sudo chmod +x stop_containers.sh

@@ -1,13 +1,12 @@
-from cliente import Cliente
-from socket import socket
+from modelo.cliente import Cliente
 
 if __name__ == '__main__':
     cliente = Cliente()
 
     mensaje = input("Escribir un mensaje: ")
-    cliente.enviar_mensaje(mensaje)
+    cliente.enviar(mensaje)
 
-    received_message = cliente.recibir_mensaje()
+    received_message = cliente.recibir()
 
     print("El servidor devolvió: ", received_message)
 

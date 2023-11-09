@@ -1,4 +1,4 @@
-from common.cifrador_homomorfico_parcial import CifradorHomomorficoParcial
+from modelo.cifrador_homomorfico_parcial import CifradorHomomorficoParcial
 
 
 def test_cifrador_homomorfico_encripta_un_mensaje():
