@@ -1,4 +1,5 @@
 import socket
+import pickle
 
 
 class Servidor:
@@ -11,14 +12,16 @@ class Servidor:
 
     def recibir(self):
         self.__client_socket, _client_address = self.__socket.accept()
-        return self.__client_socket.recv(1024)
+        return self.__client_socket.recv(4096)
 
     def recibir_decodeado(self):
         self.__client_socket, _client_address = self.__socket.accept()
-        return self.__client_socket.recv(1024).decode()
+        datos_recibidos = self.__client_socket.recv(4096)
+        return pickle.loads(datos_recibidos)
 
-    def enviar(self, mensaje_a_enviar):
-        self.__client_socket.send(mensaje_a_enviar.encode())
+    def enviar(self, mensaje):
+        mensaje_a_enviar = pickle.dumps(mensaje)
+        self.__client_socket.send(mensaje_a_enviar)
 
     def cerrar_conexion(self):
         self.__socket.shutdown(socket.SHUT_RDWR)
