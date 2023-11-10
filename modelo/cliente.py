@@ -4,9 +4,11 @@ from modelo.cifrador_homomorfico_parcial import CifradorHomomorficoParcial
 
 
 class Cliente:
-    def __init__(self, cifrador: CifradorHomomorficoParcial = None, socket_cliente: socket = socket.socket(),
+    def __init__(self, cifrador: CifradorHomomorficoParcial = None,
+                 socket_cliente: socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM),
                  host='localhost',
                  port=5000):
+        self.direccion_servidor = (host, port)
         self.__cifrador = cifrador
         self.__socket = socket_cliente
         self.__socket.connect((host, port))

@@ -1,17 +1,18 @@
 from modelo.servidor import Servidor
 
-def server_program():
-    print("Servidor comenzado")
+servidor = Servidor()
+print('Servidor escuchando en {}:{}'.format(*servidor.direccion_servidor))
 
-    servidor = Servidor()
+direccion_cliente = servidor.aceptar_conexion()
+print('Conexión establecida con: ', direccion_cliente)
 
-    mensaje_recibido = servidor.recibir_decodeado()
+while True:
+    data = servidor.recibir()
+    if not data or data.lower() == 'exit':
+        break
 
-    print("Se recibio el mensaje:", mensaje_recibido)
+    print('Mensaje del cliente:', data)
 
-    servidor.enviar(mensaje_recibido)
+    servidor.enviar(data)
 
-    servidor.cerrar_conexion()
-
-if __name__ == '__main__':
-    server_program()
+servidor.cerrar_conexion()

@@ -1,13 +1,18 @@
 from modelo.cliente import Cliente
 
-if __name__ == '__main__':
-    cliente = Cliente()
+cliente = Cliente()
 
-    mensaje = input("Escribir un mensaje: ")
+print('Conectado a {}:{}'.format(*cliente.direccion_servidor))
+
+while True:
+    mensaje = input('Escribir mensaje ("exit" para terminar): ')
+
     cliente.enviar(mensaje)
 
-    received_message = cliente.recibir()
+    if mensaje.lower() == 'exit':
+        break
 
-    print("El servidor devolvió: ", received_message)
+    data = cliente.recibir()
+    print('Respuesta del servidor:', data)
 
-    cliente.cerrar_conexion()
+cliente.cerrar_conexion()
