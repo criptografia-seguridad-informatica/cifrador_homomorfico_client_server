@@ -7,8 +7,9 @@ direccion_cliente = servidor.aceptar_conexion()
 print('Conexión establecida con: ', direccion_cliente)
 
 while True:
-    data = servidor.recibir()
-    if not data or data.lower() == 'exit':
+    try:
+        data = servidor.recibir()
+    except EOFError:
         break
 
     print('Mensaje del cliente:', data)
