@@ -1,6 +1,7 @@
 import socket
 import pickle
 from modelo.cifrador_homomorfico_parcial import CifradorHomomorficoParcial
+from helpers.helpers import tokenizar_expresion
 
 
 class Cliente:
@@ -13,9 +14,21 @@ class Cliente:
         self.__socket = socket_cliente
         self.__socket.connect((host, port))
 
+    def convertir(self, token):
+        if token[0] == 'e':
+            return self.__cifrador.encriptar(float(token[1:]))
+        elif token.isdigit():
+            return float(token)
+        return token
+
     def enviar(self, mensaje):
-        if self.__cifrador:
-            mensaje = self.__cifrador.encriptar(mensaje)
+        try:
+            tokens = tokenizar_expresion(mensaje)
+            mensaje = [self.convertir(token) for token in tokens]
+        except ValueError:
+            if self.__cifrador:
+                mensaje = self.__cifrador.encriptar(mensaje)
+
 
         mensaje_a_enviar = pickle.dumps(mensaje)
         self.__socket.send(mensaje_a_enviar)

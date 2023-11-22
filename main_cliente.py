@@ -22,15 +22,18 @@ def main():
     print('Conectado a {}:{}'.format(*cliente.direccion_servidor))
 
     while True:
-        mensaje = input('Escribir numero ("exit" para terminar): ')
+        mensaje = input('Escribir expresión ("exit" para terminar): ')
 
         if mensaje.lower() == 'exit':
             break
-
-        cliente.enviar(int(mensaje))
+        try:
+            cliente.enviar(mensaje)
+        except AttributeError:
+            print('No hay ningún cifrador configurado.')
+            break
 
         data = cliente.recibir()
-        print('Respuesta del servidor:', data)
+        print('Resultado del servidor:', data)
 
     cliente.cerrar_conexion()
 

@@ -1,4 +1,5 @@
 from modelo.servidor import Servidor
+from modelo.calculadora import Calculadora
 
 servidor = Servidor()
 print('Servidor escuchando en {}:{}'.format(*servidor.direccion_servidor))
@@ -14,6 +15,10 @@ while True:
 
     print('Mensaje del cliente:', data)
 
-    servidor.enviar(data)
+
+    calculadora = Calculadora(data)
+    resultado = calculadora.calcular()
+
+    servidor.enviar(resultado)
 
 servidor.cerrar_conexion()
