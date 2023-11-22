@@ -3,7 +3,7 @@ import pickle
 
 
 class Servidor:
-    def __init__(self, socket_servidor: socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM), host='localhost',
+    def __init__(self, socket_servidor: socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM), host='0.0.0.0',
                  puerto=5000):
         self.direccion_servidor = (host, puerto)
         self.__socket_servidor = socket_servidor

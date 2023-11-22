@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 RUN apt update && apt install -y git build-essential cmake python3 python3-dev python3-pip
-RUN pip3 install numpy pybind11 pytest
+RUN pip3 install numpy pybind11
 RUN mkdir app
 RUN git clone https://github.com/Huelse/SEAL-Python.git
 WORKDIR /SEAL-Python
@@ -17,8 +17,10 @@ RUN rm -r SEAL-Python
 WORKDIR /app
 COPY . ./
 
+RUN pip install --no-cache-dir -r requirements.txt
+
 # Hay que copiar este archivo en todos lados donde se use la librería de SEAL
-RUN cp seal.*.so ./common
+RUN cp seal.*.so ./modelo
 
 
 ENTRYPOINT ["python3"]
