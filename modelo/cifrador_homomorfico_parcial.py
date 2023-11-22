@@ -1,6 +1,6 @@
 class CifradorHomomorficoParcial:
     """
-    Una clase que implementa encriptación homomórfica.
+    Una clase que implementa encriptación homomórfica parcial.
     """
 
     def __init__(self):

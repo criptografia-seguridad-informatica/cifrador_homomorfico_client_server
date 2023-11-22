@@ -35,9 +35,10 @@ class Cliente:
         return mensaje_a_enviar
 
     def recibir(self):
+        from phe.paillier import EncryptedNumber
         datos_recibidos = self.__socket.recv(4096)
         objeto_recibido = pickle.loads(datos_recibidos)
-        if self.__cifrador:
+        if self.__cifrador and isinstance(objeto_recibido, EncryptedNumber):
             objeto_recibido = self.__cifrador.desencriptar(objeto_recibido)
         return objeto_recibido
 
