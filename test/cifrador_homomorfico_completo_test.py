@@ -51,3 +51,17 @@ def test_multiplicacion_de_un_numero_encriptado_por_numero_no_encriptado():
     multiplicacion_desencriptada = cifrador_homomorfico_completo.desencriptar(multiplicacion_encriptada)
 
     assert multiplicacion_desencriptada == 25
+
+def test_multiplicacion_de_dos_numeros_encriptados():
+    numero_a_encriptar_1 = 10
+    numero_a_encriptar_2 = 5
+
+    cifrador_homomorfico_completo = CifradorHomomorficoCompleto()
+
+    numero_encriptado_1 = cifrador_homomorfico_completo.encriptar(numero_a_encriptar_1)
+    numero_encriptado_2 = cifrador_homomorfico_completo.encriptar(numero_a_encriptar_2)
+
+    multiplicacion_encriptada = numero_encriptado_1 * numero_encriptado_2
+    multiplicacion_desencriptada = cifrador_homomorfico_completo.desencriptar(multiplicacion_encriptada)
+
+    assert multiplicacion_desencriptada == 50
