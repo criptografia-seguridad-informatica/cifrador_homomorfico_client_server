@@ -17,4 +17,4 @@ class CifradorHomomorficoCompleto:
 
 
     def desencriptar(self, numero_a_desencriptar):
-        raise NotImplementedError
+        return self.__fhe.decryptInt(numero_a_desencriptar)[0]
