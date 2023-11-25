@@ -2,10 +2,10 @@ import socket
 import pickle
 from modelo.cifrador_homomorfico_parcial import CifradorHomomorficoParcial
 from helpers.helpers import tokenizar_expresion
-
+import logging
 
 class Cliente:
-    def __init__(self, cifrador: CifradorHomomorficoParcial = None,
+    def __init__(self, cifrador=None,
                  socket_cliente: socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM),
                  host='localhost',
                  port=5000):
@@ -16,9 +16,9 @@ class Cliente:
 
     def convertir(self, token):
         if token[0] == 'e':
-            return self.__cifrador.encriptar(float(token[1:]))
+            return self.__cifrador.encriptar(int(token[1:]))
         elif token.isdigit():
-            return float(token)
+            return int(token)
         return token
 
     def enviar(self, mensaje):
@@ -29,14 +29,23 @@ class Cliente:
             if self.__cifrador:
                 mensaje = self.__cifrador.encriptar(mensaje)
 
-
         mensaje_a_enviar = pickle.dumps(mensaje)
-        self.__socket.send(mensaje_a_enviar)
+        self.__socket.send(str(len(mensaje_a_enviar)).encode())
+
+        ack = self.__socket.recv(1024)
+
+        if ack:
+            self.__socket.sendall(mensaje_a_enviar)
+
         return mensaje_a_enviar
 
     def recibir(self):
         from phe.paillier import EncryptedNumber
-        datos_recibidos = self.__socket.recv(4096)
+        datos_recibidos = b""
+        while True:
+            paquete = self.__socket.recv(4096)
+            if not paquete: break
+            datos_recibidos += paquete
         objeto_recibido = pickle.loads(datos_recibidos)
         if self.__cifrador and isinstance(objeto_recibido, EncryptedNumber):
             objeto_recibido = self.__cifrador.desencriptar(objeto_recibido)

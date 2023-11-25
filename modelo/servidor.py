@@ -1,3 +1,4 @@
+import logging
 import socket
 import pickle
 
@@ -17,7 +18,17 @@ class Servidor:
         return self.direccion_cliente
 
     def recibir(self):
-        datos_recibidos = self.__socket_cliente.recv(4096)
+        datos_recibidos = b""
+
+        tamanio = int(self.__socket_cliente.recv(1024).decode())
+        if tamanio:
+            self.__socket_cliente.send(b"ack")
+
+        while tamanio > 0:
+            paquete = self.__socket_cliente.recv(4096)
+            tamanio -= len(paquete)
+            datos_recibidos += paquete
+
         return pickle.loads(datos_recibidos)
 
     def enviar(self, mensaje):

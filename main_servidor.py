@@ -1,5 +1,8 @@
+import logging
+
 from modelo.servidor import Servidor
 from modelo.calculadora import Calculadora
+logging.basicConfig(level=logging.INFO)
 
 servidor = Servidor()
 print('Servidor escuchando en {}:{}'.format(*servidor.direccion_servidor))
@@ -15,9 +18,15 @@ while True:
 
     print('Mensaje del cliente:', data)
 
-
+    import pdb
     calculadora = Calculadora(data)
-    resultado = calculadora.calcular()
+
+    pdb.set_trace()
+    try:
+        resultado = calculadora.calcular()
+    except ValueError:
+        print("Item para calcular invalido")
+        break
 
     servidor.enviar(resultado)
 

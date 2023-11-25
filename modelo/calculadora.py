@@ -4,12 +4,14 @@ class Calculadora:
 
     def calcular(self):
         from phe.paillier import EncryptedNumber
+        from Pyfhel import PyCtxt
 
         numeros = []
         operadores = []
 
         for item in self.__expression:
-            if isinstance(item, (int, float, EncryptedNumber)):
+
+            if isinstance(item, (int, float, EncryptedNumber, PyCtxt)):
                 numeros.append(item)
             elif item in {'+', '-', '*', '/'}:
                 operadores.append(item)
